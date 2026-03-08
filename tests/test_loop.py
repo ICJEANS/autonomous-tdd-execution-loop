@@ -57,6 +57,14 @@ class TestLoop(unittest.TestCase):
             t = generate_test(f)
             self.assertTrue(t.name.startswith("test_hello_world"))
 
+    def test_generate_test_avoids_overwrite(self):
+        with TemporaryDirectory() as td:
+            f = Path(td) / "dup.py"
+            f.write_text("def x():\n    return 1\n")
+            first = generate_test(f)
+            second = generate_test(f)
+            self.assertNotEqual(first.name, second.name)
+
     def test_missing_target_file(self):
         ok, logs = run_loop("/tmp/does-not-exist-xyz.py", retries=2)
         self.assertFalse(ok)

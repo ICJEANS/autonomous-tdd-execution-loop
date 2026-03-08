@@ -7,6 +7,11 @@ def generate_test(target: Path) -> Path:
     resolved = target.resolve()
     safe_stem = ''.join(ch if ch.isalnum() or ch == '_' else '_' for ch in target.stem)
     test = target.parent / f"test_{safe_stem}.py"
+    if test.exists():
+        n = 1
+        while (target.parent / f"test_{safe_stem}_{n}.py").exists():
+            n += 1
+        test = target.parent / f"test_{safe_stem}_{n}.py"
     test.write_text(
         "import unittest\n"
         "import importlib.util\n"

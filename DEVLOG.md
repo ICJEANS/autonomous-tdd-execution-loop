@@ -43,3 +43,10 @@
 - Local test evidence:
   - Command: `python3 -m unittest discover -s tests -v`
   - Result: `Ran 7 tests` / `OK`
+
+## 2026-03-08 Round 6
+- Prevented auto-generated test overwrite by suffixing duplicate names.
+- Added test `test_generate_test_avoids_overwrite`.
+- Local test evidence:
+  - Command: `python3 -m unittest discover -s tests -v`
+  - Result: `Ran 8 tests` / `OK`
