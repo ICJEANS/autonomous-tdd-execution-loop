@@ -57,3 +57,10 @@
 - Local test evidence:
   - Command: `python3 -m unittest discover -s tests -v`
   - Result: `Ran 9 tests` / `OK`
+
+## 2026-03-08 Round 8
+- Added empty-target guard to fail fast with explicit diagnostic.
+- Added test `test_empty_target_file`.
+- Local test evidence:
+  - Command: `python3 -m unittest discover -s tests -v`
+  - Result: `Ran 10 tests` / `OK`

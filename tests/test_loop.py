@@ -72,6 +72,14 @@ class TestLoop(unittest.TestCase):
             ok, _ = run_loop(str(f), retries=3)
             self.assertTrue(ok)
 
+    def test_empty_target_file(self):
+        with TemporaryDirectory() as td:
+            f = Path(td) / "empty.py"
+            f.write_text("")
+            ok, logs = run_loop(str(f), retries=2)
+            self.assertFalse(ok)
+            self.assertIn("Target file is empty", logs[0][2])
+
     def test_missing_target_file(self):
         ok, logs = run_loop("/tmp/does-not-exist-xyz.py", retries=2)
         self.assertFalse(ok)

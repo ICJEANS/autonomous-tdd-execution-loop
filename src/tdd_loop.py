@@ -62,6 +62,9 @@ def run_loop(target_file: str, retries: int = 3):
     if not target.exists() or not target.is_file():
         logs.append((1, 2, f"Target file not found: {target}"))
         return False, logs
+    if target.stat().st_size == 0:
+        logs.append((1, 2, f"Target file is empty: {target}"))
+        return False, logs
 
     test = generate_test(target)
     for i in range(1, retries + 1):
