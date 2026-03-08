@@ -51,14 +51,19 @@ def run_loop(target_file: str, retries: int = 3):
 
     test = generate_test(target)
     for i in range(1, retries + 1):
-        proc = subprocess.run(
-            [sys.executable, "-m", "unittest", "discover", "-s", str(test.parent), "-p", test.name, "-v"],
-            capture_output=True,
-            text=True,
-        )
-        logs.append((i, proc.returncode, proc.stdout + proc.stderr))
-        if proc.returncode == 0:
-            return True, logs
+        try:
+            proc = subprocess.run(
+                [sys.executable, "-m", "unittest", "discover", "-s", str(test.parent), "-p", test.name, "-v"],
+                capture_output=True,
+                text=True,
+                timeout=15,
+            )
+            logs.append((i, proc.returncode, proc.stdout + proc.stderr))
+            if proc.returncode == 0:
+                return True, logs
+        except subprocess.TimeoutExpired as e:
+            logs.append((i, 124, f"Test run timeout: {e}"))
+            return False, logs
         if not patch_common_syntax_error(target):
             break
     return False, logs

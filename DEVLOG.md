@@ -29,3 +29,10 @@
 - Local test evidence:
   - Command: `python3 -m unittest discover -s tests -v`
   - Result: `Ran 5 tests` / `OK`
+
+## 2026-03-08 Round 4
+- Added subprocess timeout for test execution and explicit timeout log handling.
+- Added test `test_timeout_is_reported` using mocked timeout path.
+- Local test evidence:
+  - Command: `python3 -m unittest discover -s tests -v`
+  - Result: `Ran 6 tests` / `OK`
