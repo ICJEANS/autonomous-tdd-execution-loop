@@ -40,6 +40,7 @@ def patch_common_syntax_error(target: Path):
 
 
 def run_loop(target_file: str, retries: int = 3):
+    retries = max(1, int(retries))
     target = Path(target_file)
     logs = []
 

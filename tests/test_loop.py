@@ -24,6 +24,14 @@ class TestLoop(unittest.TestCase):
             self.assertTrue(ok)
             self.assertGreaterEqual(len(logs), 1)
 
+    def test_retries_zero_is_clamped(self):
+        with TemporaryDirectory() as td:
+            f = Path(td) / "bad3.py"
+            f.write_text("def x():\n    pritn('hi')\n")
+            ok, logs = run_loop(str(f), retries=0)
+            self.assertTrue(ok)
+            self.assertGreaterEqual(len(logs), 1)
+
     def test_missing_target_file(self):
         ok, logs = run_loop("/tmp/does-not-exist-xyz.py", retries=2)
         self.assertFalse(ok)

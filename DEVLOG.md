@@ -14,3 +14,11 @@
 - Local test evidence:
   - Command: `python3 -m unittest discover -s tests -v`
   - Result: `Ran 3 tests in 0.090s` / `OK`
+
+
+## 2026-03-08 Round 2
+- Clamped retries in `run_loop` to at least 1 to avoid accidental no-op runs.
+- Added test `test_retries_zero_is_clamped`.
+- Local test evidence:
+  - Command: `python3 -m unittest discover -s tests -v`
+  - Result: `Ran 4 tests` / `OK`
