@@ -65,6 +65,13 @@ class TestLoop(unittest.TestCase):
             second = generate_test(f)
             self.assertNotEqual(first.name, second.name)
 
+    def test_patch_missing_colon_in_def(self):
+        with TemporaryDirectory() as td:
+            f = Path(td) / "missing_colon.py"
+            f.write_text("def x()\n    return 1\n")
+            ok, _ = run_loop(str(f), retries=3)
+            self.assertTrue(ok)
+
     def test_missing_target_file(self):
         ok, logs = run_loop("/tmp/does-not-exist-xyz.py", retries=2)
         self.assertFalse(ok)

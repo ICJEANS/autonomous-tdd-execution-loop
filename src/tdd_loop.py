@@ -40,6 +40,14 @@ def patch_common_syntax_error(target: Path):
     for wrong, right in typo_fixes.items():
         text = text.replace(wrong, right)
 
+    fixed_lines = []
+    for line in text.splitlines():
+        stripped = line.strip()
+        if (stripped.startswith("def ") or stripped.startswith("class ")) and stripped.endswith(")") and not stripped.endswith("):"):
+            line = line + ":"
+        fixed_lines.append(line)
+    text = "\n".join(fixed_lines) + ("\n" if text.endswith("\n") else "")
+
     if text != original:
         target.write_text(text)
         return True

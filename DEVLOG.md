@@ -50,3 +50,10 @@
 - Local test evidence:
   - Command: `python3 -m unittest discover -s tests -v`
   - Result: `Ran 8 tests` / `OK`
+
+## 2026-03-08 Round 7
+- Added syntax auto-fix for missing trailing colon on `def`/`class` lines.
+- Added test `test_patch_missing_colon_in_def`.
+- Local test evidence:
+  - Command: `python3 -m unittest discover -s tests -v`
+  - Result: `Ran 9 tests` / `OK`
