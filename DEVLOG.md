@@ -71,3 +71,11 @@
 - Local test evidence:
   - Command: `python3 -m unittest discover -s tests -v`
   - Result: `Ran 11 tests` / `OK`
+
+## 2026-03-08 Round 10
+- Normalized input path with `expanduser()` and maintained retry coercion robustness (`int(...)`).
+- CI command now explicitly matches local execution: `python3 -m unittest discover -s tests -v`.
+- Added test `test_retries_accepts_numeric_string`.
+- Local test evidence:
+  - Command: `python3 -m unittest discover -s tests -v`
+  - Result: `Ran 12 tests` / `OK`

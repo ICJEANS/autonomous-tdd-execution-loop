@@ -95,6 +95,13 @@ class TestLoop(unittest.TestCase):
             self.assertFalse(ok)
             self.assertIn("[truncated]", logs[0][2])
 
+    def test_retries_accepts_numeric_string(self):
+        with TemporaryDirectory() as td:
+            f = Path(td) / "bad_string_retry.py"
+            f.write_text("def x():\n    prnit('hi')\n")
+            ok, _ = run_loop(str(f), retries="2")
+            self.assertTrue(ok)
+
     def test_missing_target_file(self):
         ok, logs = run_loop("/tmp/does-not-exist-xyz.py", retries=2)
         self.assertFalse(ok)
