@@ -80,6 +80,21 @@ class TestLoop(unittest.TestCase):
             self.assertFalse(ok)
             self.assertIn("Target file is empty", logs[0][2])
 
+    def test_large_output_is_truncated(self):
+        with TemporaryDirectory() as td:
+            f = Path(td) / "ok.py"
+            f.write_text("def x():\n    return 1\n")
+
+            class P:
+                returncode = 1
+                stdout = "a" * 25000
+                stderr = ""
+
+            with patch("tdd_loop.subprocess.run", return_value=P()):
+                ok, logs = run_loop(str(f), retries=1)
+            self.assertFalse(ok)
+            self.assertIn("[truncated]", logs[0][2])
+
     def test_missing_target_file(self):
         ok, logs = run_loop("/tmp/does-not-exist-xyz.py", retries=2)
         self.assertFalse(ok)

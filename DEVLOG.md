@@ -64,3 +64,10 @@
 - Local test evidence:
   - Command: `python3 -m unittest discover -s tests -v`
   - Result: `Ran 10 tests` / `OK`
+
+## 2026-03-08 Round 9
+- Added output truncation in run logs to prevent runaway memory and oversized artifacts.
+- Added test `test_large_output_is_truncated`.
+- Local test evidence:
+  - Command: `python3 -m unittest discover -s tests -v`
+  - Result: `Ran 11 tests` / `OK`

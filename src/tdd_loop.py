@@ -75,7 +75,10 @@ def run_loop(target_file: str, retries: int = 3):
                 text=True,
                 timeout=15,
             )
-            logs.append((i, proc.returncode, proc.stdout + proc.stderr))
+            output = (proc.stdout + proc.stderr)
+            if len(output) > 20000:
+                output = output[:20000] + "\n...[truncated]"
+            logs.append((i, proc.returncode, output))
             if proc.returncode == 0:
                 return True, logs
         except subprocess.TimeoutExpired as e:
