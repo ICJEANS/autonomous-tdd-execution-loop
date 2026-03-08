@@ -22,3 +22,10 @@
 - Local test evidence:
   - Command: `python3 -m unittest discover -s tests -v`
   - Result: `Ran 4 tests` / `OK`
+
+## 2026-03-08 Round 3
+- Added `prin(` typo fix to auto-patch map.
+- Added test `test_loop_autopatch_prin_variant`.
+- Local test evidence:
+  - Command: `python3 -m unittest discover -s tests -v`
+  - Result: `Ran 5 tests` / `OK`

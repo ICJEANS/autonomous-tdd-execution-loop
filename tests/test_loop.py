@@ -32,6 +32,13 @@ class TestLoop(unittest.TestCase):
             self.assertTrue(ok)
             self.assertGreaterEqual(len(logs), 1)
 
+    def test_loop_autopatch_prin_variant(self):
+        with TemporaryDirectory() as td:
+            f = Path(td) / "bad_prin.py"
+            f.write_text("def x():\n    prin('hi')\n")
+            ok, _ = run_loop(str(f), retries=3)
+            self.assertTrue(ok)
+
     def test_missing_target_file(self):
         ok, logs = run_loop("/tmp/does-not-exist-xyz.py", retries=2)
         self.assertFalse(ok)

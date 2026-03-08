@@ -29,6 +29,7 @@ def patch_common_syntax_error(target: Path):
     typo_fixes = {
         "pritn(": "print(",
         "prnit(": "print(",
+        "prin(": "print(",
     }
     for wrong, right in typo_fixes.items():
         text = text.replace(wrong, right)
