@@ -4,7 +4,7 @@ sys.path.append(str(Path(__file__).resolve().parents[1] / 'src'))
 import unittest
 from unittest.mock import patch
 import subprocess
-from tdd_loop import run_loop
+from tdd_loop import run_loop, generate_test
 from pathlib import Path
 from tempfile import TemporaryDirectory
 
@@ -49,6 +49,13 @@ class TestLoop(unittest.TestCase):
                 ok, logs = run_loop(str(f), retries=1)
             self.assertFalse(ok)
             self.assertEqual(logs[0][1], 124)
+
+    def test_generate_test_sanitizes_filename(self):
+        with TemporaryDirectory() as td:
+            f = Path(td) / "hello-world.py"
+            f.write_text("def x():\n    return 1\n")
+            t = generate_test(f)
+            self.assertTrue(t.name.startswith("test_hello_world"))
 
     def test_missing_target_file(self):
         ok, logs = run_loop("/tmp/does-not-exist-xyz.py", retries=2)
